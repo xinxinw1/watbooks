@@ -34,3 +34,12 @@ class Course(models.Model):
     class Meta:
         verbose_name_plural = "Courses"
         ordering = ["catalog_number"]
+
+class Rating(models.Model):
+    """
+    Represents a rating for a particular course and its textbook.
+    """
+
+    book = models.ForeignKey(Textbook, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    is_useful = models.BooleanField()
