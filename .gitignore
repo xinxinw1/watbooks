@@ -1,1 +1,13 @@
+.DS_Store
 .idea
+*.pyc
+*.pyo
+eggs
+lib
+lib64
+develop-eggs
+bin
+typings
+node_modules
+jspm_packages
+bower_components
