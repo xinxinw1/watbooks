@@ -28,7 +28,7 @@ export class CourseComponent implements OnInit {
     var obs = this.route.params.map((params: Params) => {
       if (!params['courseString']) return null;
       var courseString = params['courseString'];
-      var arr = courseString.match(/^([a-zA-Z]+)([0-9]+)$/);
+      var arr = courseString.match(/^([a-zA-Z]+)([0-9]+[a-zA-Z]*)$/);
       var subject = arr[1].toUpperCase();
       var catalogNumber = arr[2];
       return {
