@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   
   constructor(
     private courseParamService: CourseParamService,
+    private authService: AuthService,
     private router: Router
   ) {}
   
@@ -30,5 +31,10 @@ export class AppComponent implements OnInit {
     if (filtered.match(/^[a-zA-Z]+[0-9]+$/)){
       this.router.navigate(['/course', filtered.toLowerCase()]);
     }
+  }
+  
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
