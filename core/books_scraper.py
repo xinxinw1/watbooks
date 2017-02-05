@@ -13,7 +13,7 @@ class Parse(object):
         self.course_num = course_num
         self.course_term = course_term
         self.first = True
-        self.all_skus = {}
+        self.all_skus = dict()
 
     def get_links_to_all(self, first_page_source):
         """Gets links to all pages from the source of the first page."""
@@ -118,16 +118,15 @@ class Parse(object):
 
 
 
-#
-#new = Parse(course_dept='CIVE', course_num='440')
-#counter = 0
-#while True:
-#    p = new.get_json()
-#    dict = json.loads(p)
-#    if dict:
-#        print (dict)
-#        print (len(dict))
-#        counter += 1
-#    else:
-#        print ('No more pages to parse')
-#        break
+# new = Parse(course_dept='CIVE', course_num='440')
+# counter = 0
+# while True:
+#     p = new.get_json()
+#     dict = json.loads(p)
+#     if dict:
+#         print (dict)
+#         print (len(dict))
+#         counter += 1
+#     else:
+#         print ('No more pages to parse')
+#         break
