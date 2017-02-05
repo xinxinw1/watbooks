@@ -1,3 +1,4 @@
 Django==1.10
 Jinja2==2.8
 MarkupSafe==0.23
+djangorestframework==3.5.3
