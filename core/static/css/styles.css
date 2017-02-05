@@ -39,6 +39,30 @@ code {
   border: none;
 }
 
-.progress.no-margin-bottom {
+.no-margin-bottom {
   margin-bottom: 0;
+}
+
+.icon-extra-margin {
+  margin-right: 2px;
+}
+
+.add-margin-right {
+  padding-right: 20px;
+}
+
+/*
+http://stackoverflow.com/questions/13771101/centering-a-button-vertically-in-table-cell-using-twitter-bootstrap
+*/
+.table.table-middle>tbody>tr>td, .table.table-middle>tbody>tr>th, .table.table-middle>tfoot>tr>td, .table.table-middle>tfoot>tr>th, .table.table-middle>thead>tr>td, .table.table-middle>thead>tr>th {
+  vertical-align: middle;
+}
+
+/*
+http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3
+*/
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

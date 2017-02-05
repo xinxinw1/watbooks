@@ -5,25 +5,38 @@
 <div *ngFor="let book of latestBooks">
   <h3>{{ book.title }}</h3>
   
-  <table class="table table-no-border">
+  <table class="table table-no-border table-middle">
     <colgroup>
       <col class="col-xs-1">
       <col class="col-xs-7">
     </colgroup>
     <tr>
       <th>Usefulness</th>
-      <td>
+      <td class="">
         <div class="row">
-          <div class="col-xs-3">
+          <div class="col-xs-3 vcenter">
             <div class="progress no-margin-bottom">
               <div class="progress-bar progress-bar-success" role="progressbar" [style.width]="getExactPercent(book) + '%'"></div>
             </div>
           </div>
-          <div class="col-xs-2">
+          <div class="col-xs-2 vcenter">
             {{ getPercent(book) + '% found it useful' }}
           </div>
-          <div class="col-xs-1">
+          <div class="col-xs-1 vcenter">
             {{ book.usefulness.up + book.usefulness.down + ' replies' }}
+          </div>
+          <div class="col-xs-3 vcenter">
+            Did you find this textbook useful?
+          </div>
+          <div class="col-xs-2 vcenter">
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+              </button>
+            </div>
           </div>
         </div>
       </td>
