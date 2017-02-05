@@ -101,28 +101,25 @@ def get_rating_for_course_book(sku, subject, catalog_no):
         return {'up': 0, 'down': 0}
 
 def get_entries_for_course(subject, catalog_no, user):
-    try:
-        course = Course.objects.get(catalog_number=catalog_no, subject=subject)
-        textbooks = get_textbooks_for_course(subject, catalog_no)
-        for textbook in textbooks:
+    course = Course.objects.get(catalog_number=catalog_no, subject=subject)
+    textbooks = get_textbooks_for_course(subject, catalog_no)
+    for textbook in textbooks:
+        try:
+            book = Textbook.objects.get(sku=textbook['sku'])
+            ratings = Rating.objects.filter(book=book,course=course)
+            up = sum([x.is_useful for x in ratings])
+            down = len(ratings) - up
+            textbook["usefulness"] = {'up': up, 'down': down}
+            textbook["new_price"] = "${0}".format(textbook["new_price"])
+            textbook["used_price"] = "${0}".format(textbook["used_price"])
             try:
-                book = Textbook.objects.get(sku=textbook['sku'])
-                ratings = Rating.objects.filter(book=book,course=course)
-                up = sum([x.is_useful for x in ratings])
-                down = len(ratings) - up
-                textbook["usefulness"] = {'up': up, 'down': down}
-                textbook["new_price"] = "${0}".format(textbook["new_price"])
-                textbook["used_price"] = "${0}".format(textbook["used_price"])
-                try:
-                    rating = Rating.objects.get(book=book,course=course,user=user)
-                    textbook["user_rating"] = "up" if rating.is_useful == True else "down"
-                except:
-                    textbook["user_rating"] = "none"
+                rating = Rating.objects.get(book=book,course=course,user=user)
+                textbook["user_rating"] = "up" if rating.is_useful == True else "down"
             except:
-                textbook["usefulness"] = {'up': 0, 'down': 0}
-        return textbooks
-    except:
-        return []
+                textbook["user_rating"] = "none"
+        except:
+            textbook["usefulness"] = {'up': 0, 'down': 0}
+    return textbooks
 
 def get_textbooks_for_course(subject, catalog_no):
     try:

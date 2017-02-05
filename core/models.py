@@ -34,7 +34,7 @@ class Course(models.Model):
 
     title = models.CharField(max_length=96)
     subject = models.CharField(max_length=5)
-    catalog_number = models.IntegerField()
+    catalog_number = models.CharField(max_length=5)
     books = models.ManyToManyField(Textbook)
 
     def __str__(self):

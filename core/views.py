@@ -39,7 +39,7 @@ def book_collection(request):
 def course_endpoint(request, course, catalog_no):
     if request.method == 'GET':
         course = str(course)
-        catalog_no = int(catalog_no)
+        catalog_no = str(catalog_no)
         user = request.user
         entries = get_entries_for_course(course, catalog_no, user)
         result = {"data": {"latest": entries}, "meta": {"status_code": 200, "outcome": "success"}}
@@ -57,7 +57,7 @@ def rate_endpoint(request):
         payload = json.loads(request.body.decode())
         sku = str(payload["sku"])
         subject = str(payload["subject"])
-        catalog_number = int(payload["catalog_number"])
+        catalog_number = str(payload["catalog_number"])
         user_rating = str(payload["user_rating"])
         add_rating(sku, subject, catalog_number, request.user, user_rating)
         return Response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
