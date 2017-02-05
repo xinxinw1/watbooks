@@ -13,6 +13,7 @@ class Parse(object):
         self.course_num = course_num
         self.course_term = course_term
         self.first = True
+        self.all_skus = dict()
 
     def get_links_to_all(self, first_page_source):
         """Gets links to all pages from the source of the first page."""
@@ -83,6 +84,12 @@ class Parse(object):
                 sku = book.find("span","sku").text
                 price = book.find("span","price").text
 
+                #checking if the sku already exists
+                if sku in self.all_skus:
+                    continue
+                else:
+                    self.all_skus[sku] = sku
+
                 complete_book_details = {}
                 complete_book_details['title'] = title
                 complete_book_details['author'] = author
@@ -101,6 +108,7 @@ class Parse(object):
             json.dump(all_book_objects, outfile)
         '''
         all_book_objects = self.parse_one_page() # returns all_books_objects
+        
         if all_book_objects:
             json_file = json.dumps(all_book_objects)
             return json_file
@@ -109,8 +117,8 @@ class Parse(object):
             return json_file
 
 
-''' #Testing code
-new = Parse(course_dept='MATH', course_num='119')
+'''
+new = Parse(course_dept='ECE', course_num='222')
 counter = 0
 while True:
     p = new.get_json()
