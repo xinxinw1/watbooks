@@ -10,17 +10,16 @@ html {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 72px;
   background-color: #f5f5f5;
 }
-
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
 .main-container {
-  padding: 30px 15px 80px;
+  padding: 30px 15px 92px;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -100,6 +99,19 @@ code {
   .col-lg-1-5 {
     width: 12.5%;
   }
+}
+
+.github img {
+  margin-right: 5px;
+}
+
+.github a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.github a:hover span {
+  text-decoration: underline;
 }
 
 /*
