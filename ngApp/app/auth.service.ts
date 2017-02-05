@@ -42,7 +42,7 @@ export class AuthService {
   }
   
   logout(): void {
-    this.setToken(null);
+    this.setToken(false);
   }
   
   private handleError(error: any): Promise<any> {
