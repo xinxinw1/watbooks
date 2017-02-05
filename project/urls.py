@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/books/$', book_collection),
     url(r'^api/v1/course/([A-Z]{3,6})/([0-9]{2,4})/$', course_endpoint),
+    url(r'^api/v1/rate/$', rate_endpoint),
     url(r'^api/v1/courses/$', all_courses_endpoint),
     url(r'^api/v1/register/$', create_user_endpoint),
     url(r'^api/v1/login/$', login_endpoint),

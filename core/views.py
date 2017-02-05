@@ -104,7 +104,8 @@ def create_user_endpoint(request):
         if user == USER_ALREADY_CREATED:
             return Response({"data": "Username already exists. Choose a different username.", \
                 "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
-        return Response({"data": "Successfully created user", "meta": {"status_code": 200}})
+        token = Token.objects.create(user=user)
+        return Response({"data": {"message": "Successfully created user", "token": token.key}, "meta": {"status_code": 200}})
     else:
         return BAD_REQUEST_RESPONSE
 
