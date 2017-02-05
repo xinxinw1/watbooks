@@ -51,11 +51,21 @@ export class CourseComponent implements OnInit {
   }
   
   getExactPercent(book: any) {
+    if (!this.hasRatings(book)) return 0;
     return book.usefulness.up / (book.usefulness.up + book.usefulness.down) * 100;
+  }
+  
+  getExactPercentFail(book: any) {
+    if (!this.hasRatings(book)) return 0;
+    return book.usefulness.down / (book.usefulness.up + book.usefulness.down) * 100;
   }
   
   getPercent(book: any) {
     return Math.round(this.getExactPercent(book));
+  }
+  
+  hasRatings(book: any) {
+    return book.usefulness.up + book.usefulness.down > 0;
   }
   
   toggleUp(book: any) {
@@ -63,8 +73,14 @@ export class CourseComponent implements OnInit {
       var changed;
       if (book.user_rating == "up") {
         changed = "none";
+        book.usefulness.up--;
+      } else if (book.user_rating == "down") {
+        changed = "up";
+        book.usefulness.up++;
+        book.usefulness.down--;
       } else {
         changed = "up";
+        book.usefulness.up++;
       }
       book.user_rating = changed;
       return this.courseService.rate(book.sku as string, this.data.subject as string, Number(this.data.catalogNumber), changed)
@@ -79,8 +95,14 @@ export class CourseComponent implements OnInit {
       var changed;
       if (book.user_rating == "down") {
         changed = "none";
+        book.usefulness.down--;
+      } else if (book.user_rating == "up") {
+        changed = "down";
+        book.usefulness.up--;
+        book.usefulness.down++;
       } else {
         changed = "down";
+        book.usefulness.down++;
       }
       book.user_rating = changed;
       return this.courseService.rate(book.sku as string, this.data.subject as string, Number(this.data.catalogNumber), changed)
