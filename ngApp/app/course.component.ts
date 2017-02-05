@@ -47,4 +47,12 @@ export class CourseComponent implements OnInit {
       this.latestBooks = res.data.latest;
     });
   }
+  
+  getExactPercent(book: any) {
+    return book.usefulness.up / (book.usefulness.up + book.usefulness.down) * 100;
+  }
+  
+  getPercent(book: any) {
+    return Math.round(this.getExactPercent(book));
+  }
 }

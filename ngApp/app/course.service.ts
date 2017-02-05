@@ -36,6 +36,17 @@ export class CourseService {
               "up": 5,
               "down": 3
             }
+          },
+          {
+            "title": "A Random book",
+            "author": "An Author",
+            "sku": "235343875924",
+            "new_price": "$80.00",
+            "used_price": "$20.00",
+            "usefulness": {
+              "up": 1,
+              "down": 3
+            }
           }
         ]
       }

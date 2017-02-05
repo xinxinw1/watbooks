@@ -4,10 +4,7 @@ html {
   position: relative;
   min-height: 100%;
 }
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -23,7 +20,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 .main-container {
-  padding: 60px 15px 0;
+  padding: 60px 15px 60px;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -36,4 +33,12 @@ body {
 
 code {
   font-size: 80%;
+}
+
+.table-no-border > tbody > tr:first-child > td, .table-no-border > tbody > tr:first-child > th {
+  border: none;
+}
+
+.progress.no-margin-bottom {
+  margin-bottom: 0;
 }

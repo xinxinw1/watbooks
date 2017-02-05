@@ -3,11 +3,47 @@
 </div>
 
 <div *ngFor="let book of latestBooks">
-  <h2>{{ book.title }}</h2>
+  <h3>{{ book.title }}</h3>
   
-  <p>Author: {{ book.author }}</p>
-  <p>SKU: {{ book.sku }}</p>
-  <p>Price for new: {{ book.new_price }}</p>
-  <p>Price for used: {{ book.used_price }}</p>
-  <p>Usefulness: {{ book.usefulness.up }} / {{ book.usefulness.up + book.usefulness.down }}</p>
+  <table class="table table-no-border">
+    <colgroup>
+      <col class="col-xs-1">
+      <col class="col-xs-7">
+    </colgroup>
+    <tr>
+      <th>Usefulness</th>
+      <td>
+        <div class="row">
+          <div class="col-xs-3">
+            <div class="progress no-margin-bottom">
+              <div class="progress-bar progress-bar-success" role="progressbar" [style.width]="getExactPercent(book) + '%'"></div>
+            </div>
+          </div>
+          <div class="col-xs-2">
+            {{ getPercent(book) + '% found it useful' }}
+          </div>
+          <div class="col-xs-1">
+            {{ book.usefulness.up + book.usefulness.down + ' replies' }}
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th>Author</th>
+      <td>{{ book.author }}</td>
+    </tr>
+    <tr>
+      <th>SKU</th>
+      <td>{{ book.sku }}</td>
+    </tr>
+    <tr>
+      <th>Price for new</th>
+      <td>{{ book.new_price }}</td>
+    </tr>
+    <tr>
+      <th>Price for used</th>
+      <td>{{ book.used_price }}</td>
+    </tr>
+  </table>
+  
 </div>
