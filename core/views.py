@@ -36,7 +36,7 @@ def book_collection(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-@authentication_classes((TokenAuthentication))
+@authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def course_endpoint(request, course, catalog_no):
     if request.method == 'GET':
@@ -48,7 +48,7 @@ def course_endpoint(request, course, catalog_no):
         return Response(result)
 
 @api_view(['POST'])
-@authentication_classes((TokenAuthentication))
+@authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def rate_endpoint(request):
     """
