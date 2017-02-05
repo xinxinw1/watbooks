@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
   loginData: any
   signupData: any;
   
+  loginError: string;
+  signupError: string;
+  
   constructor(
     private authService: AuthService,
     private router: Router
@@ -30,6 +33,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginData)
       .then(_ => {
           this.router.navigate(['/']);
+      })
+      .catch(err => {
+        console.log(err);
+        this.loginError = err.data;
       });
   }
   
@@ -37,6 +44,10 @@ export class LoginComponent implements OnInit {
     this.authService.signup(this.signupData)
       .then(_ => {
           this.router.navigate(['/']);
+      })
+      .catch(err => {
+        console.log(err);
+        this.signupError = err.data;
       });
   }
   
