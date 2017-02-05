@@ -22,8 +22,15 @@ export class AuthService {
   signup(signupData: any): Promise<any> {
     return this.http.post('/api/v1/register/', JSON.stringify(signupData))
       .toPromise()
-      .then(response => response.json().data)
+      .then(response => {
+        this.token = response.json().data.token;
+        return true;
+      })
       .catch(this.handleError);
+  }
+  
+  loggedIn(): boolean {
+    return !!this.token;
   }
   
   private handleError(error: any): Promise<any> {
