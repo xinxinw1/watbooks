@@ -61,6 +61,10 @@ code {
   padding-right: 20px;
 }
 
+.valign-middle > span {
+  vertical-align: middle;
+}
+
 /*
 http://stackoverflow.com/questions/13771101/centering-a-button-vertically-in-table-cell-using-twitter-bootstrap
 */

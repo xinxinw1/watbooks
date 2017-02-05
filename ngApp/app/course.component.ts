@@ -30,7 +30,7 @@ export class CourseComponent implements OnInit {
       var courseString = params['courseString'];
       var arr = courseString.match(/^([a-zA-Z]+)([0-9]+[a-zA-Z]*)$/);
       var subject = arr[1].toUpperCase();
-      var catalogNumber = arr[2];
+      var catalogNumber = arr[2].toUpperCase();
       return {
         subject: subject,
         catalogNumber: catalogNumber,

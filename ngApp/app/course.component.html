@@ -2,6 +2,10 @@
   <h1>{{ data.string }}</h1>
 </div>
 
+<div *ngIf="latestBooks && latestBooks.length == 0">
+  <p class="lead">No textbooks required!</p>
+</div>
+
 <div *ngFor="let book of latestBooks">
   <h3>{{ book.name }}</h3>
   
