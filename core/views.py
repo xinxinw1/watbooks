@@ -1,3 +1,10 @@
+#################################
+# Programmers: Kenneth Sinder, Xin-Xin Wang
+# Date: 2017-02-04
+# Filename: core/views.py
+# Description: API endpoints and Angular2 redirection
+#################################
+
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -31,3 +38,11 @@ def course_endpoint(request, course, catalog_no):
         entries = get_entries_for_course(course, catalog_no)
         result = {"data": {"latest": entries}, "meta": {"status_code": 200, "outcome": "success"}}
         return Response(result)
+
+@api_view(['GET'])
+def all_courses_endpoint(request):
+    if request.method == 'GET':
+        result = {"data": get_all_courses(), "meta": {"status_code": 200, "outcome": "success"}}
+    else: 
+        result = {"data": [], "meta": {"status_code": 501, "outcome": "bad_request_type"}}
+    return Response(result)

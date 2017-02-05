@@ -1,3 +1,10 @@
+#################################
+# Programmer: Kenneth Sinder
+# Date: 2017-02-04
+# Filename: core/models.py
+# Description: Business logic
+#################################
+
 from django.db import models
 
 class Textbook(models.Model):

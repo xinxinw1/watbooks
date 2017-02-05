@@ -1,6 +1,14 @@
+#################################
+# Programmer: Kenneth Sinder
+# Date: 2017-02-04
+# Filename: core/helpers.py
+# Description: Services to support API endpoints at views.py
+#################################
+
 from core.models import *
 from core.serializers import *
 import re
+import requests
 
 def create_textbook(name, author, sku, new_price, used_price = None, is_required = False):
     """
@@ -87,3 +95,10 @@ def get_textbooks_for_course(subject, catalog_no):
         return BookSerializer(course.books, many=True).data
     except:
         return []
+
+def get_all_courses():
+    r = requests.get("https://api.uwaterloo.ca/v2/courses.json?key=d457a25ed1f5f6529f15ed86137d4b0f")
+    d = r.json()
+    if int(d['meta']['status']) == 200:
+        return [{'subject': x['subject'], 'catalog_number': x['catalog_number']} for x in d['data']]
+    return []
