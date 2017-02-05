@@ -57,7 +57,7 @@ def add_book_to_course(course, book):
         course.save()
     return course
 
-def add_rating(sku, subject, catalog_no, is_useful):
+def add_rating(sku, subject, catalog_no, user, is_useful):
     """
     Identifies the Course and Textbook using the given arguments,
     and applies the given boolean usefulness flag to a new Rating.
@@ -65,8 +65,20 @@ def add_rating(sku, subject, catalog_no, is_useful):
     """
     book = Textbook.objects.get(sku=sku)
     course = Course.objects.get(catalog_number=catalog_no, subject=subject)
-    rating = Rating(is_useful=is_useful, book=book, course=course)
-    rating.save()
+    try:
+        r = Rating.objects.get(book=book,course=course,user=user)
+        if is_useful == "none":
+            r.delete()
+            return
+        r.is_useful = True if is_useful=='up' else False
+        r.save()
+        return r
+    except:
+        pass
+    if is_useful != "none":
+        is_useful = True if is_useful=='up' else False
+        rating = Rating(is_useful=is_useful, book=book, course=course, user=user)
+        rating.save()
     return rating
 
 def get_rating_for_course_book(sku, subject, catalog_no):
@@ -80,7 +92,7 @@ def get_rating_for_course_book(sku, subject, catalog_no):
     except:
         return {'up': 0, 'down': 0}
 
-def get_entries_for_course(subject, catalog_no):
+def get_entries_for_course(subject, catalog_no, user):
     try:
         course = Course.objects.get(catalog_number=catalog_no, subject=subject)
         textbooks = get_textbooks_for_course(subject, catalog_no)
@@ -93,6 +105,11 @@ def get_entries_for_course(subject, catalog_no):
                 textbook["usefulness"] = {'up': up, 'down': down}
                 textbook["new_price"] = "${0}".format(textbook["new_price"])
                 textbook["used_price"] = "${0}".format(textbook["used_price"])
+                try:
+                    rating = Rating.objects.get(book=book,course=course,user=user)
+                    textbook["user_rating"] = "up" if rating.is_useful == True else "down"
+                except:
+                    textbook["user_rating"] = "none"
             except:
                 textbook["usefulness"] = {'up': 0, 'down': 0}
         return textbooks

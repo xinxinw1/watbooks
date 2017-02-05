@@ -42,8 +42,8 @@ def course_endpoint(request, course, catalog_no):
     if request.method == 'GET':
         course = str(course)
         catalog_no = int(catalog_no)
-        user = request.META['HTTP_AUTHORIZATION']
-        entries = get_entries_for_course(course, catalog_no)
+        user = request.user
+        entries = get_entries_for_course(course, catalog_no, user)
         result = {"data": {"latest": entries}, "meta": {"status_code": 200, "outcome": "success"}}
         return Response(result)
 
@@ -60,8 +60,9 @@ def rate_endpoint(request):
         sku = str(payload["sku"])
         subject = str(payload["subject"])
         catalog_number = int(payload["catalog_number"])
-        is_useful = bool(payload["is_useful"])
-        add_rating(sku, subject, catalog_number, is_useful)
+        is_useful = str(payload["is_useful"])
+        user_rating = str(payload["user_rating"])
+        add_rating(sku, subject, catalog_number, request.user, is_useful)
         return response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
 
 
