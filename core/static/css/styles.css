@@ -43,6 +43,16 @@ code {
   margin-bottom: 0;
 }
 
+.navbar-brand-smaller-mobile {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  .navbar-brand-smaller-mobile {
+    font-size: 18px;
+  }
+}
+
 .icon-extra-margin {
   margin-right: 2px;
 }
@@ -66,3 +76,153 @@ http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3
     vertical-align: middle;
     float: none;
 }
+
+.navbar-no-collapse .navbar-right .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.navbar-no-collapse .navbar-right .dropdown-menu-left {
+  right: auto;
+  left: 0;
+}
+
+.navbar-no-collapse .navbar {
+  border-radius: 4px;
+}
+
+.navbar-no-collapse .navbar-header {
+  float: left;
+}
+
+.navbar-no-collapse .navbar-collapse {
+  width: auto;
+  border-top: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.navbar-no-collapse .navbar-collapse.collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+.navbar-no-collapse .navbar-collapse.in {
+  overflow-y: visible;
+}
+.navbar-no-collapse .navbar-fixed-top .navbar-collapse,
+.navbar-no-collapse .navbar-static-top .navbar-collapse,
+.navbar-no-collapse .navbar-fixed-bottom .navbar-collapse {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.navbar-no-collapse .container > .navbar-header,
+.navbar-no-collapse  .container-fluid > .navbar-header,
+.navbar-no-collapse  .container > .navbar-collapse,
+.navbar-no-collapse  .container-fluid > .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.navbar-no-collapse .navbar-fixed-top,
+.navbar-no-collapse .navbar-fixed-bottom {
+  border-radius: 0;
+}
+
+.navbar-no-collapse .navbar > .container .navbar-brand,
+.navbar-no-collapse .navbar > .container-fluid .navbar-brand {
+  margin-left: -15px;
+}
+
+.navbar-no-collapse .navbar-toggle {
+  display: none;
+}
+
+.navbar-no-collapse .navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-no-collapse .navbar-nav > li {
+  float: left;
+}
+.navbar-no-collapse .navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-no-collapse .navbar-form .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-no-collapse .navbar-form .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+.navbar-no-collapse .navbar-form .form-control-static {
+  display: inline-block;
+}
+.navbar-no-collapse .navbar-form .input-group {
+  display: inline-table;
+  vertical-align: middle;
+}
+.navbar-no-collapse .navbar-form .input-group .navbar-no-collapse .input-group-addon,
+.navbar-no-collapse .navbar-form .input-group .input-group-btn,
+.navbar-no-collapse .navbar-form .input-group .form-control {
+  width: auto;
+}
+.navbar-no-collapse .navbar-form .input-group > .form-control {
+  width: 100%;
+}
+.navbar-no-collapse .navbar-form .control-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-no-collapse .navbar-form .radio,
+.navbar-no-collapse .navbar-form .checkbox {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-no-collapse .navbar-form .radio label,
+.navbar-no-collapse .navbar-form .checkbox label {
+  padding-left: 0;
+}
+.navbar-no-collapse .navbar-form .radio input[type="radio"],
+.navbar-no-collapse .navbar-form .checkbox input[type="checkbox"] {
+  position: relative;
+  margin-left: 0;
+}
+.navbar-no-collapse .navbar-form .has-feedback .form-control-feedback {
+  top: 0;
+}
+.navbar-no-collapse .navbar-form {
+  width: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  margin-left: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.navbar-no-collapse .navbar-text {
+  float: left;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.navbar-no-collapse .navbar-left {
+  float: left !important;
+}
+.navbar-no-collapse .navbar-right {
+  float: right !important;
+  margin-right: -15px;
+}
+.navbar-no-collapse .navbar-right ~ .navbar-right {
+  margin-right: 0;
+}
+

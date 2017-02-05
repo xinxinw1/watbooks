@@ -14,21 +14,24 @@
       <th>Usefulness</th>
       <td class="">
         <div class="row">
-          <div class="col-xs-3 vcenter">
+          <div class="hidden-xs col-sm-3 col-lg-3 vcenter">
             <div class="progress no-margin-bottom">
               <div class="progress-bar progress-bar-success" role="progressbar" [style.width]="getExactPercent(book) + '%'"></div>
             </div>
           </div>
-          <div class="col-xs-2 vcenter">
+          <div class="hidden-xs col-sm-3 col-lg-2 vcenter">
             {{ getPercent(book) + '% found it useful' }}
           </div>
-          <div class="col-xs-1 vcenter">
+          <div class="col-xs-4 hidden-sm hidden-md hidden-lg hidden-xl vcenter">
+            {{ getPercent(book) + '%' }}
+          </div>
+          <div class="hidden-xs col-sm-2 col-lg-1 vcenter">
             {{ book.usefulness.up + book.usefulness.down + ' replies' }}
           </div>
-          <div class="col-xs-3 vcenter">
+          <div class="hidden-xs hidden-sm hidden-md col-sm-3 col-lg-3 vcenter">
             Did you find this textbook useful?
           </div>
-          <div class="col-xs-2 vcenter">
+          <div class="col-sm-2 vcenter">
             <div class="btn-group btn-group-sm" role="group">
               <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
