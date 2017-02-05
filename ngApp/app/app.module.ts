@@ -4,7 +4,9 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { HomeComponent } from "./home.component";
+import { HomeComponent } from './home.component';
+
+import { SearchService } from './search.service';
 
 import { routing } from './app.route';
 
@@ -19,7 +21,7 @@ import { routing } from './app.route';
     AppComponent,
     HomeComponent,
   ],
-  providers: [ ],
+  providers: [ SearchService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
