@@ -7,8 +7,13 @@
 
 from core.models import *
 from core.serializers import *
+from django.db import IntegrityError
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 import re
 import requests
+
+USER_ALREADY_CREATED = "User Already Created"
 
 def get_or_create_textbook(name, author, sku, new_price, used_price = None, is_required = False):
     """
@@ -107,3 +112,16 @@ def get_all_courses():
     if int(d['meta']['status']) == 200:
         return [{'subject': x['subject'], 'catalog_number': x['catalog_number']} for x in d['data']]
     return []
+
+def add_user(username, email, password, first_name, last_name):
+    try:
+        user = User.objects.create_user(username, email, password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        return user
+    except IntegrityError:
+        return USER_ALREADY_CREATED
+
+def login(username, password):
+    return authenticate(username, password)
