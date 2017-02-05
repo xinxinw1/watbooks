@@ -45,7 +45,13 @@ def get_or_create_course(code, name):
         catalog_no = int(code[index+1:])
     else:
         subject = code.split(' ')[0]
-        catalog_no = int(code.split(' ')[1])
+        try:
+            catalog_no = int(code.split(' ')[-1])
+        except:
+            try:
+                catalog_no = int(code.split(' ')[-1][:-1])
+            except:
+                catalog_no = ''.join([x for x in code.split(' ')[-1] if x.isdigit()])
     course, created = Course.objects.get_or_create(subject=subject, catalog_number=catalog_no, defaults={'title': name})
     return course
 
@@ -147,13 +153,15 @@ def login(email, password):
 
 
 def seed():
-    courses = get_all_courses()
+    courses = [x for x in get_all_courses() if x['subject'] in ('MATH', 'PMATH', 'ECE', 'GENE', 'ME', 'SE')]
+    #courses = [{'subject': 'CIVE', 'catalog_number': 440}]
     for c in courses:
         print(c)
         crs = get_or_create_course(c['subject'] + ' ' + str(c['catalog_number']), "BestCourse")
         new = Parse(course_dept=c['subject'], course_num=str(c['catalog_number']))
         while True:
             p = new.get_json()
+            print(p)
             d = json.loads(p)
             if not d:
                 break
@@ -163,6 +171,8 @@ def seed():
                 #except:
                 #    b['price'] = '0'
                 print("Price:" + b['price'])
+                if '$' in b['price'].split(' ')[-1]:
+                    b['price'] = b['price'].split(' ')[-1][1:]
                 book = get_or_create_textbook(b['title'], b['author'], b['sku'].split(' ')[-1], str(b["price"].split(' ')[-1]))
                 add_book_to_course(crs, book)
                 print("success")

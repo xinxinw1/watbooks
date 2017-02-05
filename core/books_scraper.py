@@ -13,7 +13,7 @@ class Parse(object):
         self.course_num = course_num
         self.course_term = course_term
         self.first = True
-        self.all_skus = dict()
+        self.all_skus = {}
 
     def get_links_to_all(self, first_page_source):
         """Gets links to all pages from the source of the first page."""
