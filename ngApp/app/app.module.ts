@@ -6,9 +6,11 @@ import { HttpModule }    from '@angular/http';
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home.component';
 import { CourseComponent } from './course.component';
+import { LoginComponent } from "./login.component";
 
 import { CourseService } from './course.service';
 import { CourseParamService } from './course-param.service';
+import { AuthService } from './auth.service';
 
 import { routing } from './app.route';
 
@@ -22,11 +24,13 @@ import { routing } from './app.route';
   declarations: [
     AppComponent,
     HomeComponent,
-    CourseComponent
+    CourseComponent,
+    LoginComponent
   ],
   providers: [
     CourseService,
-    CourseParamService
+    CourseParamService,
+    AuthService
   ],
   bootstrap: [ AppComponent ]
 })

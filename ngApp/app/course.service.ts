@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, URLSearchParams } from '@angular/http';
 
+import { AuthService } from './auth.service';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CourseService {
   
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private authService: AuthService
+  ) { }
 
   /*search(subject: string, catalogNumber: number): Promise<any> {
     let params: URLSearchParams = new URLSearchParams();
@@ -51,6 +56,22 @@ export class CourseService {
         ]
       }
     });
+  }
+  
+  rate(sku: string, subject: string, catalogNumber: number, isUseful: boolean): Promise<any> {
+    let headers = new Headers({ 'Authorization': 'Token ' + this.authService.token });
+    return this.http.post('/api/v1/login/', JSON.stringify({
+        sku: sku,
+        subject: subject,
+        catalog_number: catalogNumber,
+        is_useful: isUseful
+      }), headers)
+      .toPromise()
+      .then(response => {
+        console.log(response);
+        return true;
+      })
+      .catch(this.handleError);
   }
   
   private handleError(error: any): Promise<any> {
