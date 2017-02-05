@@ -147,10 +147,10 @@ def login(email, password):
 
 
 def seed():
-    #courses = get_all_courses()
-    courses = [{'subject': 'MATH', 'catalog_number': 135}]
+    courses = get_all_courses()
     for c in courses:
-        crs = get_or_create_course(c['subject'] + ' ' + c['catalog_number'], "BestCourse")
+        print(c)
+        crs = get_or_create_course(c['subject'] + ' ' + str(c['catalog_number']), "BestCourse")
         new = Parse(course_dept=c['subject'], course_num=str(c['catalog_number']))
         while True:
             p = new.get_json()
