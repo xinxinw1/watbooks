@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Login</h1>
+</div>
+
+<form (ngSubmit)="onLoginSubmit()">
+  <div class="form-group">
+    <label for="login-email">UW email address</label>
+    <input type="email" class="form-control" id="login-email" [(ngModel)]="loginData.email" placeholder="Email" name="login-email">
+  </div>
+  <div class="form-group">
+    <label for="login-pass">Password</label>
+    <input type="password" class="form-control" id="login-pass" [(ngModel)]="loginData.password" placeholder="Password" name="login-pass">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<div class="page-header">
+  <h1>Sign Up</h1>
+</div>
+
+<form (ngSubmit)="onSignupSubmit()">
+  <div class="form-group">
+    <label for="signup-email">UW email address</label>
+    <input type="email" class="form-control" id="signup-email" [(ngModel)]="signupData.email" placeholder="Email" name="signup-email">
+  </div>
+  <div class="form-group">
+    <label for="signup-first-name">First Name</label>
+    <input type="text" class="form-control" id="signup-first-name" [(ngModel)]="signupData.first_name" placeholder="First Name" name="signup-first-name">
+  </div>
+  <div class="form-group">
+    <label for="signup-last-name">Last Name</label>
+    <input type="text" class="form-control" id="signup-last-name" [(ngModel)]="signupData.last_name" placeholder="Last Name" name="signup-last-name">
+  </div>
+  <div class="form-group">
+    <label for="signup-pass">Password</label>
+    <input type="password" class="form-control" id="signup-pass" [(ngModel)]="signupData.password" placeholder="Password" name="signup-pass">
+  </div>
+  <div class="form-group">
+    <label for="signup-pass-rep">Repeat password</label>
+    <input type="password" class="form-control" id="signup-pass-rep" [(ngModel)]="signupData.password_repeat" placeholder="Repeat password" name="signup-pass-rep">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
