@@ -1,16 +1,10 @@
-import { provideRouter, RouterConfig } from '@angular/router';
-import {Component1Component} from "./component1.component";
-import {Component2Component} from "./component2.component";
-import {DjangoComponent} from "./django.component";
+import { RouterModule, Routes } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
+import { HomeComponent } from "./home.component";
 
-const routes: RouterConfig = [
-  {path: '',redirectTo: '/component1',pathMatch: 'full'},
-  { path: 'component1', component: Component1Component },
-  { path: 'component2', component: Component2Component },
-  { path: 'djcomponent', component: DjangoComponent },
+const routes: Routes = [
+  {path: '', component: HomeComponent},
 ];
 
-export const appRouterProviders = [
-  provideRouter(routes)
-];
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {useHash: true});
