@@ -124,4 +124,4 @@ def add_user(username, email, password, first_name, last_name):
         return USER_ALREADY_CREATED
 
 def login(username, password):
-    return authenticate(username, password)
+    return authenticate(username=username, password=password)

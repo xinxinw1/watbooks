@@ -55,7 +55,7 @@ def rate_endpoint(request):
     {"sku": 123123, "subject": "PHYS", catalog_number: 234, "is_useful": true}
     """
     if request.method == 'POST':
-        payload = json.loads(request.body)
+        payload = json.loads(request.body.decode())
         sku = str(payload["sku"])
         subject = str(payload["subject"])
         catalog_number = int(payload["catalog_number"])
@@ -73,7 +73,7 @@ def all_courses_endpoint(request):
 @api_view(['POST'])
 def create_user_endpoint(request):
     if request.method == 'POST':
-        payload = json.loads(request.body)
+        payload = json.loads(request.body.decode())
         try:
             username = str(payload["username"])
             if len(username) > 16 or len(username) < 3 or re.search(r'[^A-Za-z0-9]+', username) is not None:
@@ -116,18 +116,15 @@ def create_user_endpoint(request):
 
 @api_view(['POST'])
 def login_endpoint(request):
-    if request.method == POST:
-        try:
-            payload = json.loads(request.body)
-            username = str(payload["username"])
-            password = str(payload["password"])
-            user = login(username, password)
-            if user is None:
-                raise Exception()
-            token = Token.objects.create(user=user)
-            return {"data": {"token": token.key}}
-        except:
-            pass
-    pass
+    if request.method == 'POST':
+        payload = json.loads(request.body.decode())
+        username = str(payload["username"])
+        password = str(payload["password"])
+        user = login(username, password)
+        if user is None:
+            raise Exception()
+        token = Token.objects.create(user=user)
+        return Response({"data": {"token": token.key}})
+    return Response({})
 
 
