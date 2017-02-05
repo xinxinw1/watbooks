@@ -62,7 +62,7 @@ def rate_endpoint(request):
         catalog_number = int(payload["catalog_number"])
         user_rating = str(payload["user_rating"])
         add_rating(sku, subject, catalog_number, request.user, user_rating)
-        return response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
+        return Response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
 
 
 @api_view(['GET'])
