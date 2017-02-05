@@ -3,3 +3,4 @@ Jinja2==2.8
 MarkupSafe==0.23
 djangorestframework==3.5.3
 requests>=2.13.0
+BeautifulSoup4>=0

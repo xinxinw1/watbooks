@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import re
 import requests
+import json
+from core.books_scraper import *
 
 USER_ALREADY_CREATED = "User Already Created"
 
@@ -24,7 +26,7 @@ def get_or_create_textbook(name, author, sku, new_price, used_price = None, is_r
     """
     try:
         return Textbook.objects.get(sku=sku)
-    except Textbook.DoesNotExist:
+    except:
         if not used_price is None:
             book = Textbook(name=name, author=author, sku=sku, new_price=new_price, used_price=used_price, is_required=is_required)
         else:
@@ -142,3 +144,25 @@ def add_user(email, password, first_name, last_name):
 
 def login(email, password):
     return authenticate(username=email, password=password)
+
+
+def seed():
+    #courses = get_all_courses()
+    courses = [{'subject': 'MATH', 'catalog_number': 135}]
+    for c in courses:
+        crs = get_or_create_course(c['subject'] + ' ' + c['catalog_number'], "BestCourse")
+        new = Parse(course_dept=c['subject'], course_num=str(c['catalog_number']))
+        while True:
+            p = new.get_json()
+            d = json.loads(p)
+            if not d:
+                break
+            for b in d:
+                #try:
+                #    b['price'] = int(b['price'].split(' ')[-1]) if ':' not in b['price'].split(' ')[-1] else 0
+                #except:
+                #    b['price'] = '0'
+                print("Price:" + b['price'])
+                book = get_or_create_textbook(b['title'], b['author'], b['sku'].split(' ')[-1], str(b["price"].split(' ')[-1]))
+                add_book_to_course(crs, book)
+                print("success")
