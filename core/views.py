@@ -17,7 +17,7 @@ from core.models import *
 from core.serializers import *
 from core.helpers import *
 from rest_framework.authtoken.models import Token
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 BAD_REQUEST_RESPONSE = Response({"data": [], "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
@@ -36,18 +36,19 @@ def book_collection(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
+@authentication_classes((TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def course_endpoint(request, course, catalog_no):
     if request.method == 'GET':
         course = str(course)
         catalog_no = int(catalog_no)
+        user = request.META['HTTP_AUTHORIZATION']
         entries = get_entries_for_course(course, catalog_no)
         result = {"data": {"latest": entries}, "meta": {"status_code": 200, "outcome": "success"}}
         return Response(result)
 
 @api_view(['POST'])
-@authentication_classes((SessionAuthentication, BasicAuthentication))
+@authentication_classes((TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def rate_endpoint(request):
     """

@@ -6,6 +6,7 @@
 #################################
 
 from django.db import models
+from django.contrib.auth.models import User
 
 class Textbook(models.Model):
     """
@@ -50,4 +51,5 @@ class Rating(models.Model):
 
     book = models.ForeignKey(Textbook, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_useful = models.BooleanField()
