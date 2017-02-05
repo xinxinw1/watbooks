@@ -6,8 +6,8 @@ class Textbook(models.Model):
     """
 
     name = models.CharField(max_length=120)
-    author = models.CharField(max_length=100)
-    sku = models.IntegerField()
+    author = models.CharField(max_length=96)
+    sku = models.CharField(max_length=96)
     new_price = models.DecimalField(decimal_places=2, max_digits=10)
     used_price = models.DecimalField(decimal_places=2, max_digits=10)
     is_required = models.BooleanField()
