@@ -8,6 +8,7 @@ import { HomeComponent } from './home.component';
 import { CourseComponent } from './course.component';
 
 import { CourseService } from './course.service';
+import { CourseParamService } from './course-param.service';
 
 import { routing } from './app.route';
 
@@ -23,7 +24,10 @@ import { routing } from './app.route';
     HomeComponent,
     CourseComponent
   ],
-  providers: [ CourseService ],
+  providers: [
+    CourseService,
+    CourseParamService
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
