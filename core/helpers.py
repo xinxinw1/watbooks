@@ -67,11 +67,14 @@ def get_entries_for_course(subject, catalog_no):
         course = Course.objects.get(catalog_number=catalog_no, subject=subject)
         textbooks = get_textbooks_for_course(subject, catalog_no)
         for textbook in textbooks:
-                book = Textbook.objects.get(sku=textbook.sku)
+            try:
+                book = Textbook.objects.get(sku=textbook['sku'])
                 ratings = Rating.objects.filter(book=book,course=course)
                 up = sum([x.is_useful for x in ratings])
                 down = len(ratings) - up
                 textbook["usefulness"] = {'up': up, 'down': down}
+                textbook["new_price"] = "${0}".format(textbook["new_price"])
+                textbook["used_price"] = "${0}".format(textbook["used_price"])
             except:
                 textbook["usefulness"] = {'up': 0, 'down': 0}
         return textbooks
