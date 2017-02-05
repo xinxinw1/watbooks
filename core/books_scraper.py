@@ -118,15 +118,16 @@ class Parse(object):
 
 
 
-new = Parse(course_dept='CIVE', course_num='440')
-counter = 0
-while True:
-    p = new.get_json()
-    dict = json.loads(p)
-    if dict:
-        print (dict)
-        print (len(dict))
-        counter += 1
-    else:
-        print ('No more pages to parse')
-        break
+#
+#new = Parse(course_dept='CIVE', course_num='440')
+#counter = 0
+#while True:
+#    p = new.get_json()
+#    dict = json.loads(p)
+#    if dict:
+#        print (dict)
+#        print (len(dict))
+#        counter += 1
+#    else:
+#        print ('No more pages to parse')
+#        break

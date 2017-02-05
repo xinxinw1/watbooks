@@ -151,28 +151,22 @@ def add_user(email, password, first_name, last_name):
 def login(email, password):
     return authenticate(username=email, password=password)
 
-
 def seed():
-    courses = [x for x in get_all_courses() if x['subject'] in ('MATH', 'PMATH', 'ECE', 'GENE', 'ME', 'SE')]
-    #courses = [{'subject': 'CIVE', 'catalog_number': 440}]
+    courses = get_all_courses()
     for c in courses:
-        print(c)
+        #print(c)
         crs = get_or_create_course(c['subject'] + ' ' + str(c['catalog_number']), "BestCourse")
-        new = Parse(course_dept=c['subject'], course_num=str(c['catalog_number']))
+        new = Parse(course_dept=c['subject'], course_num=str(c['catalog_number']), course_term='1169')
         while True:
             p = new.get_json()
-            print(p)
+            #print(p)
             d = json.loads(p)
             if not d:
                 break
             for b in d:
-                #try:
-                #    b['price'] = int(b['price'].split(' ')[-1]) if ':' not in b['price'].split(' ')[-1] else 0
-                #except:
-                #    b['price'] = '0'
-                print("Price:" + b['price'])
+                #print("Price:" + b['price'])
                 if '$' in b['price'].split(' ')[-1]:
                     b['price'] = b['price'].split(' ')[-1][1:]
                 book = get_or_create_textbook(b['title'], b['author'], b['sku'].split(' ')[-1], str(b["price"].split(' ')[-1]))
                 add_book_to_course(crs, book)
-                print("success")
+                #print("success")
