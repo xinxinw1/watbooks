@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, URLSearchParams } from '@angular/http';
+import { Headers, RequestOptions, Http, URLSearchParams } from '@angular/http';
 
 import { AuthService } from './auth.service';
 
@@ -40,7 +40,8 @@ export class CourseService {
             "usefulness": {
               "up": 5,
               "down": 3
-            }
+            },
+            "user_rating": "up"
           },
           {
             "title": "A Random book",
@@ -58,14 +59,15 @@ export class CourseService {
     });
   }
   
-  rate(sku: string, subject: string, catalogNumber: number, isUseful: boolean): Promise<any> {
+  rate(sku: string, subject: string, catalogNumber: number, isUseful: string): Promise<any> {
     let headers = new Headers({ 'Authorization': 'Token ' + this.authService.token });
-    return this.http.post('/api/v1/login/', JSON.stringify({
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post('/api/v1/rate/', JSON.stringify({
         sku: sku,
         subject: subject,
         catalog_number: catalogNumber,
-        is_useful: isUseful
-      }), headers)
+        user_rating: isUseful
+      }), options)
       .toPromise()
       .then(response => {
         console.log(response);

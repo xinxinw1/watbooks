@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { AuthService } from './auth.service';
 import { CourseService } from './course.service';
 import { CourseParamService } from './course-param.service';
 
@@ -18,6 +19,7 @@ export class CourseComponent implements OnInit {
   
   constructor(
     private courseParamService: CourseParamService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private courseService: CourseService
   ) { }
@@ -55,4 +57,37 @@ export class CourseComponent implements OnInit {
   getPercent(book: any) {
     return Math.round(this.getExactPercent(book));
   }
+  
+  toggleUp(book: any) {
+    if (this.authService.loggedIn()) {
+      var changed;
+      if (book.user_rating == "up") {
+        changed = "none";
+      } else {
+        changed = "up";
+      }
+      book.user_rating = changed;
+      return this.courseService.rate(book.sku as string, this.data.subject as string, Number(this.data.catalogNumber), changed)
+        .then(console.log);
+    } else {
+      book.rate_error = "You must be logged in to rate";
+    }
+  }
+  
+  toggleDown(book: any) {
+    if (this.authService.loggedIn()) {
+      var changed;
+      if (book.user_rating == "down") {
+        changed = "none";
+      } else {
+        changed = "down";
+      }
+      book.user_rating = changed;
+      return this.courseService.rate(book.sku as string, this.data.subject as string, Number(this.data.catalogNumber), changed)
+        .then(console.log);
+    } else {
+      book.rate_error = "You must be logged in to rate";
+    }
+  }
+  
 }
