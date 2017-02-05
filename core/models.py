@@ -9,7 +9,7 @@ class Textbook(models.Model):
     author = models.CharField(max_length=96)
     sku = models.CharField(max_length=96)
     new_price = models.DecimalField(decimal_places=2, max_digits=10)
-    used_price = models.DecimalField(decimal_places=2, max_digits=10)
+    used_price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     is_required = models.BooleanField()
 
     def __str__(self):

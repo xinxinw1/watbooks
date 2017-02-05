@@ -5,7 +5,7 @@ from django.views.generic import View, TemplateView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from core.models import *
-from serializers import *
+from core.serializers import *
 
 # Create your views here.
 
