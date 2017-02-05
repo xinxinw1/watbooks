@@ -14,9 +14,11 @@ export class CourseService {
   ) { }
 
   get(subject: string, catalogNumber: number): Promise<any> {
-    return this.http.get('/api/v1/course/' + subject + '/' + catalogNumber + '/')
+    let headers = new Headers({ 'Authorization': 'Token ' + this.authService.token });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('/api/v1/course/' + subject + '/' + catalogNumber + '/', options)
       .toPromise()
-      .then(response => response.json().data)
+      .then(response => response.json())
       .catch(this.handleError);
   }
   
