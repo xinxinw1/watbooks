@@ -1,5 +1,4 @@
 .idea
-typings/**
 node_modules
 jspm_packages
 link-checker-results.txt
