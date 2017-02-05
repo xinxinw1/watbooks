@@ -10,7 +10,7 @@ from core.serializers import *
 import re
 import requests
 
-def create_textbook(name, author, sku, new_price, used_price = None, is_required = False):
+def get_or_create_textbook(name, author, sku, new_price, used_price = None, is_required = False):
     """
     Creates and persists a new textbook with the given params.
     Returns the created Textbook for convenience.
@@ -27,7 +27,7 @@ def create_textbook(name, author, sku, new_price, used_price = None, is_required
         book.save()
     return book
 
-def create_course(code, name):
+def get_or_create_course(code, name):
     """
     Creates and persists a new Course with the given params.
     Returns the created Course for convenience.
@@ -39,8 +39,7 @@ def create_course(code, name):
     else:
         subject = code.split(' ')[0]
         catalog_no = int(code.split(' ')[1])
-    course = Course(title=name, subject=subject, catalog_number=catalog_no)
-    course.save()
+    course, created = Course.objects.get_or_create(subject=subject, catalog_number=catalog_no, defaults={'title': name})
     return course
 
 def add_book_to_course(course, book):
