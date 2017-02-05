@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from collections import deque
 import json
-import codecs
+
 
 class Parse(object):
     def __init__(self, course_dept='', course_num='', course_term='1171'):
@@ -117,8 +117,8 @@ class Parse(object):
             return json_file
 
 
-'''
-new = Parse(course_dept='ECE', course_num='222')
+
+new = Parse(course_dept='CIVE', course_num='440')
 counter = 0
 while True:
     p = new.get_json()
@@ -130,4 +130,3 @@ while True:
     else:
         print ('No more pages to parse')
         break
-'''
