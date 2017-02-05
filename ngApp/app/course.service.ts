@@ -4,7 +4,7 @@ import { Headers, Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class SearchService {
+export class CourseService {
   
   constructor(private http: Http) { }
 
@@ -21,7 +21,7 @@ export class SearchService {
       .catch(this.handleError);
   }*/
   
-  search(subject: string, catalogNumber: number): Promise<any> {
+  get(subject: string, catalogNumber: number): Promise<any> {
     return Promise.resolve({
       "meta": {},
       "data": {

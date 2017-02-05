@@ -5,8 +5,9 @@ import { HttpModule }    from '@angular/http';
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home.component';
+import { CourseComponent } from './course.component';
 
-import { SearchService } from './search.service';
+import { CourseService } from './course.service';
 
 import { routing } from './app.route';
 
@@ -20,8 +21,9 @@ import { routing } from './app.route';
   declarations: [
     AppComponent,
     HomeComponent,
+    CourseComponent
   ],
-  providers: [ SearchService ],
+  providers: [ CourseService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
