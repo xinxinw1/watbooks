@@ -74,13 +74,7 @@ def all_courses_endpoint(request):
 def create_user_endpoint(request):
     if request.method == 'POST':
         payload = json.loads(request.body.decode())
-        try:
-            username = str(payload["username"])
-            if len(username) > 16 or len(username) < 3 or re.search(r'[^A-Za-z0-9]+', username) is not None:
-                raise Exception()
-        except:
-            return Response({"data": "Username must be 3-16 characters", \
-                "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
+
         try:
             password = str(payload["password"])
             if len(password) > 25 or len(password) < 5:
@@ -90,7 +84,7 @@ def create_user_endpoint(request):
                 "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
         try:
             email = str(payload["email"])
-            if len(email) > 100 or "uwaterloo.ca" not in email or re.search(r'[^A-Za-z0-9]+', username) is not None:
+            if len(email) > 100 or "uwaterloo.ca" not in email or re.search(r'[^A-Za-z0-9.-_]+', email) is not None:
                 raise Exception()
         except:
             return Response({"data": "E-mail must be a valid UWaterloo e-mail", \
@@ -106,7 +100,7 @@ def create_user_endpoint(request):
             return Response({"data": "First and last name must be alphabetic and less than 21 characters", \
                 "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
 
-        user = add_user(username, email, password, first_name, last_name)
+        user = add_user(email, password, first_name, last_name)
         if user == USER_ALREADY_CREATED:
             return Response({"data": "Username already exists. Choose a different username.", \
                 "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
@@ -118,11 +112,11 @@ def create_user_endpoint(request):
 def login_endpoint(request):
     if request.method == 'POST':
         payload = json.loads(request.body.decode())
-        username = str(payload["username"])
+        email = str(payload["email"])
         password = str(payload["password"])
-        user = login(username, password)
+        user = login(email, password)
         if user is None:
-            raise Exception()
+            return Response({"data": "Bad e-mail or password"})
         token = Token.objects.create(user=user)
         return Response({"data": {"token": token.key}})
     return Response({})

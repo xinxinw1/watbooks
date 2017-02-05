@@ -113,9 +113,9 @@ def get_all_courses():
         return [{'subject': x['subject'], 'catalog_number': x['catalog_number']} for x in d['data']]
     return []
 
-def add_user(username, email, password, first_name, last_name):
+def add_user(email, password, first_name, last_name):
     try:
-        user = User.objects.create_user(username, email, password)
+        user = User.objects.create_user(email, email, password)
         user.first_name = first_name
         user.last_name = last_name
         user.save()
@@ -123,5 +123,5 @@ def add_user(username, email, password, first_name, last_name):
     except IntegrityError:
         return USER_ALREADY_CREATED
 
-def login(username, password):
-    return authenticate(username=username, password=password)
+def login(email, password):
+    return authenticate(username=email, password=password)
