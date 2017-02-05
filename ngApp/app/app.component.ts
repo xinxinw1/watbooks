@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CourseParamService } from './course-param.service';
+import { AuthService } from './auth.service';
 
 import 'rxjs/add/operator/switchMap';
 

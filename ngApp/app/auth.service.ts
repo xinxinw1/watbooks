@@ -5,12 +5,12 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
-  private token: string;
+  token: string;
   
   constructor(private http: Http) { }
   
   login(loginData: any): Promise<any> {
-    return this.http.post('/api/v1/auth', JSON.stringify(loginData))
+    return this.http.post('/api/v1/login/', JSON.stringify(loginData))
       .toPromise()
       .then(response => {
         this.token = response.json().data.token;
@@ -20,7 +20,7 @@ export class AuthService {
   }
   
   signup(signupData: any): Promise<any> {
-    return this.http.post('/api/v1/users', JSON.stringify(signupData))
+    return this.http.post('/api/v1/register/', JSON.stringify(signupData))
       .toPromise()
       .then(response => response.json().data)
       .catch(this.handleError);
