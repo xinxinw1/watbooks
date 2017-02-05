@@ -11,11 +11,14 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, TemplateView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from core.models import *
 from core.serializers import *
 from core.helpers import *
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 BAD_REQUEST_RESPONSE = Response({"data": [], "meta": {"status_code": 400, "outcome": "bad_request_type"}}, status=400)
 
@@ -33,6 +36,8 @@ def book_collection(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes((SessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
 def course_endpoint(request, course, catalog_no):
     if request.method == 'GET':
         course = str(course)
@@ -40,6 +45,24 @@ def course_endpoint(request, course, catalog_no):
         entries = get_entries_for_course(course, catalog_no)
         result = {"data": {"latest": entries}, "meta": {"status_code": 200, "outcome": "success"}}
         return Response(result)
+
+@api_view(['POST'])
+@authentication_classes((SessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
+def rate_endpoint(request):
+    """
+    Sample POST Payload (JSON):
+    {"sku": 123123, "subject": "PHYS", catalog_number: 234, "is_useful": true}
+    """
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        sku = str(payload["sku"])
+        subject = str(payload["subject"])
+        catalog_number = int(payload["catalog_number"])
+        is_useful = bool(payload["is_useful"])
+        add_rating(sku, subject, catalog_number, is_useful)
+        return response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
+
 
 @api_view(['GET'])
 def all_courses_endpoint(request):
@@ -92,5 +115,19 @@ def create_user_endpoint(request):
         return BAD_REQUEST_RESPONSE
 
 @api_view(['POST'])
-def login_endpoint(request): pass
+def login_endpoint(request):
+    if request.method == POST:
+        try:
+            payload = json.loads(request.body)
+            username = str(payload["username"])
+            password = str(payload["password"])
+            user = login(username, password)
+            if user is None:
+                raise Exception()
+            token = Token.objects.create(user=user)
+            return {"data": {"token": token.key}}
+        except:
+            pass
+    pass
+
 
