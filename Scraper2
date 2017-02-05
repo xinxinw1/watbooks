@@ -1,0 +1,25 @@
+import codecs
+from bs4 import BeautifulSoup
+import json
+
+f = codecs.open("booklook_sample.html", 'r')
+soup = BeautifulSoup(f)
+
+all_forms = soup.find_all('form')
+books_all = soup.find_all("div", "book_item")
+all_book_objects = []
+
+for book in books_all:
+    title = book.find("span","title").text
+    author = book.find("span","author").text
+    sku = book.find("span","sku").text
+    price = book.find("span","price").text
+    complete_book_details = dict()
+    complete_book_details['title'] = title
+    complete_book_details['author'] = author
+    complete_book_details['sku'] = sku
+    complete_book_details['price'] = price
+    all_book_objects.append(complete_book_details)
+
+with open('json_out', 'w') as outfile:
+    json.dump(all_book_objects, outfile)
