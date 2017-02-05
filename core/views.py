@@ -116,7 +116,7 @@ def login_endpoint(request):
         password = str(payload["password"])
         user = login(email, password)
         if user is None:
-            return Response({"data": "Bad e-mail or password"})
+            return Response({"data": "Bad e-mail or password"}, status=401)
         token = Token.objects.create(user=user)
         return Response({"data": {"token": token.key}})
     return Response({})
