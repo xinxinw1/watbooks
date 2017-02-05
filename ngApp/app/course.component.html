@@ -3,7 +3,7 @@
 </div>
 
 <div *ngFor="let book of latestBooks">
-  <h3>{{ book.title }}</h3>
+  <h3>{{ book.name }}</h3>
   
   <div class="alert alert-danger" [hidden]="!book.rate_error">
     <strong>{{ book.rate_error }}</strong>
@@ -61,7 +61,7 @@
       <th>Price for new</th>
       <td>{{ book.new_price }}</td>
     </tr>
-    <tr>
+    <tr *ngIf="book.used_price != '$None'">
       <th>Price for used</th>
       <td>{{ book.used_price }}</td>
     </tr>
