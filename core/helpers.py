@@ -51,6 +51,36 @@ def add_rating(sku, subject, catalog_no, is_useful):
     rating.save()
     return rating
 
+def get_rating_for_course_book(sku, subject, catalog_no):
+    try:
+        book = Textbook.objects.get(sku=sku)
+        course = Course.objects.get(catalog_number=catalog_no, subject=subject)
+        ratings = Rating.objects.filter(book=book, course=course)
+        up = sum([x.is_useful for x in ratings])
+        down = len(ratings) - up
+        return {'up': up, 'down': down}
+    except:
+        return {'up': 0, 'down': 0}
+
+def get_entries_for_course(subject, catalog_no):
+    try:
+        course = Course.objects.get(catalog_number=catalog_no, subject=subject)
+        textbooks = get_textbooks_for_course(subject, catalog_no)
+        for textbook in textbooks:
+                book = Textbook.objects.get(sku=textbook.sku)
+                ratings = Rating.objects.filter(book=book,course=course)
+                up = sum([x.is_useful for x in ratings])
+                down = len(ratings) - up
+                textbook["usefulness"] = {'up': up, 'down': down}
+            except:
+                textbook["usefulness"] = {'up': 0, 'down': 0}
+        return textbooks
+    except:
+        return []
+
 def get_textbooks_for_course(subject, catalog_no):
-    course = Course.objects.get(catalog_number=catalog_no, subject=subject)
-    return BookSerializer(course.books, many=True).data
+    try:
+        course = Course.objects.get(catalog_number=catalog_no, subject=subject)
+        return BookSerializer(course.books, many=True).data
+    except:
+        return []
