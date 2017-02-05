@@ -53,16 +53,15 @@ def course_endpoint(request, course, catalog_no):
 def rate_endpoint(request):
     """
     Sample POST Payload (JSON):
-    {"sku": 123123, "subject": "PHYS", catalog_number: 234, "is_useful": true}
+    {"sku": 123123, "subject": "PHYS", catalog_number: 234, "user_rating": true}
     """
     if request.method == 'POST':
         payload = json.loads(request.body.decode())
         sku = str(payload["sku"])
         subject = str(payload["subject"])
         catalog_number = int(payload["catalog_number"])
-        is_useful = str(payload["is_useful"])
         user_rating = str(payload["user_rating"])
-        add_rating(sku, subject, catalog_number, request.user, is_useful)
+        add_rating(sku, subject, catalog_number, request.user, user_rating)
         return response({"data": "Successfully added a rating for {0} in {1} {2}".format(sku, subject, catalog_number)})
 
 
