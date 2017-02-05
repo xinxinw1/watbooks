@@ -14,7 +14,7 @@ def create_textbook(name, author, sku, new_price, used_price = None, is_required
     book.save()
     return book
 
-def create_course(code):
+def create_course(code, name):
     """
     Creates and persists a new Course with the given params.
     Returns the created Course for convenience.
@@ -26,7 +26,7 @@ def create_course(code):
     else:
         subject = code.split(' ')[0]
         catalog_no = int(code.split(' ')[1])
-    course = Course(subject=subject, catalog_number=catalog_no)
+    course = Course(title=name, subject=subject, catalog_number=catalog_no)
     course.save()
     return course
 

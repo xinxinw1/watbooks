@@ -24,6 +24,7 @@ class Course(models.Model):
     Represents a single UW course.
     """
 
+    title = models.CharField(max_length=96)
     subject = models.CharField(max_length=5)
     catalog_number = models.IntegerField()
     books = models.ManyToManyField(Textbook)
