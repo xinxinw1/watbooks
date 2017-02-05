@@ -5,10 +5,16 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
-  token: string;
+  token: any;
   
   constructor(private http: Http) {
-    var token = localStorage.getItem('token');
+    var token;
+    try {
+      token = JSON.parse(localStorage.getItem('token'));
+    } catch (e) {
+      console.log(e);
+      this.logout();
+    }
     if (token) this.token = token;
   }
   
@@ -32,9 +38,9 @@ export class AuthService {
       .catch(this.handleError);
   }
   
-  setToken(token: string) {
+  setToken(token: any) {
     this.token = token;
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', JSON.stringify(token));
   }
   
   loggedIn(): boolean {
