@@ -14,12 +14,17 @@ def create_textbook(name, author, sku, new_price, used_price = None, is_required
     """
     Creates and persists a new textbook with the given params.
     Returns the created Textbook for convenience.
+    If a Textbook with the same SKU already exists, return that book
+    and perform no database operations.
     """
-    if not used_price is None:
-        book = Textbook(name=name, author=author, sku=sku, new_price=new_price, used_price=used_price, is_required=is_required)
-    else:
-        book = Textbook(name=name, author=author, sku=sku, new_price=new_price, is_required=is_required)
-    book.save()
+    try:
+        return Textbook.objects.get(sku=sku)
+    except Textbook.DoesNotExist:
+        if not used_price is None:
+            book = Textbook(name=name, author=author, sku=sku, new_price=new_price, used_price=used_price, is_required=is_required)
+        else:
+            book = Textbook(name=name, author=author, sku=sku, new_price=new_price, is_required=is_required)
+        book.save()
     return book
 
 def create_course(code, name):
@@ -43,8 +48,9 @@ def add_book_to_course(course, book):
     Associates the given book with the given course.
     Returns the updated Course for consistency.
     """
-    course.books.add(book)
-    course.save()
+    if not [x for x in course.books.all() if x.sku == book.sku]:
+        course.books.add(book)
+        course.save()
     return course
 
 def add_rating(sku, subject, catalog_no, is_useful):
