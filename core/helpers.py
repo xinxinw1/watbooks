@@ -1,4 +1,5 @@
 from core.models import *
+from core.serializers import *
 import re
 
 def create_textbook(name, author, sku, new_price, used_price = None, is_required = False):
@@ -19,7 +20,7 @@ def create_course(code):
     Returns the created Course for convenience.
     """
     if not ' ' in code:
-        index = re.search('[A-Za-z][0-9]')
+        index = re.search('[A-Za-z][0-9]', code).start()
         subject = code[:index+1]
         catalog_no = int(code[index+1:])
     else:
@@ -49,3 +50,7 @@ def add_rating(sku, subject, catalog_no, is_useful):
     rating = Rating(is_useful=is_useful, book=book, course=course)
     rating.save()
     return rating
+
+def get_textbooks_for_course(subject, catalog_no):
+    course = Course.objects.get(catalog_number=catalog_no, subject=subject)
+    return BookSerializer(course.books, many=True).data
