@@ -1,29 +1,31 @@
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">watbooks</a>
-    </div>
-    <!--<ul class="nav navbar-nav">
-      <li routerLinkActive="active"><a routerLink="/course">About</a></li>
-      <li><a>Contact</a></li>
-    </ul>-->
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in icon-extra-margin"></span> Login</a></li>
-      </ul>
-      <form class="navbar-form" role="search" (ngSubmit)="onSubmit()">
-        <!-- http://stackoverflow.com/questions/18552714/bootstrap-3-how-to-maximize-input-width-inside-navbar -->
-        <div class="form-group" style="display: inline;">
-          <div class="input-group" style="display: table;">
-            <input type="text" class="form-control" placeholder="Search courses" [(ngModel)]="searchString" name="searchString">
-            <span style="width: 1%;" class="input-group-btn">
-              <button class="btn btn-default" type="submit" ><span class="glyphicon glyphicon-search"></span></button>
-            </span>
+<nav class="navbar-no-collapse">
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand navbar-brand-smaller-mobile" href="#">watbooks</a>
+      </div>
+      <!--<ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/course">About</a></li>
+        <li><a>Contact</a></li>
+      </ul>-->
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in icon-extra-margin"></span><span class="hidden-xs"> Login</span></a></li>
+        </ul>
+        <form class="navbar-form" role="search" (ngSubmit)="onSubmit()">
+          <!-- http://stackoverflow.com/questions/18552714/bootstrap-3-how-to-maximize-input-width-inside-navbar -->
+          <div class="form-group" style="display: inline;">
+            <div class="input-group" style="display: table;">
+              <input type="text" class="form-control" placeholder="Search courses" [(ngModel)]="searchString" name="searchString">
+              <span style="width: 1%;" class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div>
           </div>
-        </div>
-      </form>
-    </div><!--/.nav-collapse -->
+        </form>
+      </div><!--/.nav-collapse -->
+    </div>
   </div>
 </nav>
 
