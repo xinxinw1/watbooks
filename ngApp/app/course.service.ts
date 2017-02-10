@@ -19,7 +19,7 @@ export class CourseService {
       let headers = new Headers({ 'Authorization': `Token ${this.authService.token}` });
       options = new RequestOptions({ headers: headers });
     }
-    return this.http.get(`/api/v1/course/${subject}/${catalogNumber}/${options}/`)
+    return this.http.get(`/api/v1/course/${subject}/${catalogNumber}/`, options)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
