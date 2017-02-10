@@ -11,22 +11,24 @@ Try it out at: http://watbooks.xin-xin.me
 git clone <url>
 cd watbooks
 
-#Create a new Virtual Environment.
+# Create and enter a new virtual environment (requires virtualenv)
 virtualenv venv
 source venv/bin/activate
 
-#Install django
+# Install Django and other Python dependencies
 pip install -r requirements.txt
 
-#Run Django Development Server
+# Migrate DB and start Django server
+python manage.py migrate
 python manage.py runserver
 
-#Open a new terminal window
+# In a new terminal window:
 cd ngApp
 
-#install NPM dependencies
+# Install NPM dependencies
 npm install
-#start npm
+
+# Start NPM, incl. TypeScript compiler
 npm start
 
 ```
