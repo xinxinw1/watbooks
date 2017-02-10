@@ -26,15 +26,16 @@ export class CourseComponent implements OnInit {
   
   ngOnInit(): void {
     var obs = this.route.params.map((params: Params) => {
-      if (!params['courseString']) return null;
-      var courseString = params['courseString'];
-      var arr = courseString.match(/^([a-zA-Z]+)([0-9]+[a-zA-Z]*)$/);
-      var subject = arr[1].toUpperCase();
-      var catalogNumber = arr[2].toUpperCase();
+      if (!params['courseString'])
+        return null;
+      let courseString = params['courseString'];
+      let arr = courseString.match(/^([a-zA-Z]+)([0-9]+[a-zA-Z]*)$/);
+      let subject = arr[1].toUpperCase();
+      let catalogNumber = arr[2].toUpperCase();
       return {
         subject: subject,
         catalogNumber: catalogNumber,
-        string: subject + ' ' + catalogNumber
+        string: `${subject} ${catalogNumber}`
       };
     });
     

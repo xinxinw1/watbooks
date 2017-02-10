@@ -16,50 +16,17 @@ export class CourseService {
   get(subject: string, catalogNumber: number): Promise<any> {
     var options;
     if (this.authService.loggedIn()) {
-      var headers = new Headers({ 'Authorization': 'Token ' + this.authService.token });
+      let headers = new Headers({ 'Authorization': `Token ${this.authService.token}` });
       options = new RequestOptions({ headers: headers });
     }
-    return this.http.get('/api/v1/course/' + subject + '/' + catalogNumber + '/', options)
+    return this.http.get(`/api/v1/course/${subject}/${catalogNumber}/${options}/`)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
   
-  /*get(subject: string, catalogNumber: number): Promise<any> {
-    return Promise.resolve({
-      "meta": {},
-      "data": {
-        "latest": [
-          {
-            "title": "LINEAR CIRCUITS (1ST CUSTOM ED FOR ECE 140/240)",
-            "author": "An Author",
-            "sku": "235343875924",
-            "new_price": "$80.00",
-            "used_price": "$20.00",
-            "usefulness": {
-              "up": 5,
-              "down": 3
-            },
-            "user_rating": "up"
-          },
-          {
-            "title": "A Random book",
-            "author": "An Author",
-            "sku": "235343875924",
-            "new_price": "$80.00",
-            "used_price": "$20.00",
-            "usefulness": {
-              "up": 1,
-              "down": 3
-            }
-          }
-        ]
-      }
-    });
-  }*/
-  
   rate(sku: string, subject: string, catalogNumber: number, isUseful: string): Promise<any> {
-    let headers = new Headers({ 'Authorization': 'Token ' + this.authService.token });
+    let headers = new Headers({ 'Authorization': `Token ${this.authService.token}` });
     let options = new RequestOptions({ headers: headers });
     return this.http.post('/api/v1/rate/', JSON.stringify({
         sku: sku,
